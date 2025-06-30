@@ -26,8 +26,11 @@ void Handler::handleGet(http_request message)
 
     try
     {
-        auto timestamp = DateTimeParser::parseISOTimestamp(paths[0]);
-        message.reply(status_codes::OK, timestamp);
+        const auto timestamp = DateTimeParser::parseISOTimestamp(paths[0]);
+        const auto now = time(NULL);
+        const auto diff = timestamp - now;
+        const long diffDays = round(diff / (double)(60 * 60 * 24));
+        message.reply(status_codes::OK, diffDays);
     }
     catch (invalid_argument e)
     {

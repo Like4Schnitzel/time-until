@@ -1,6 +1,7 @@
 #pragma once
 
 #include "datetimeparser.hpp"
+#include <math.h>
 #include <cpprest/http_listener.h>
 
 using namespace std;
