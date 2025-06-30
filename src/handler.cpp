@@ -24,6 +24,13 @@ void Handler::handleGet(http_request message)
         return;
     }
 
-    string timestamp = paths[0];
-    message.reply(status_codes::OK, timestamp);
+    try
+    {
+        auto timestamp = DateTimeParser::parseISOTimestamp(paths[0]);
+        message.reply(status_codes::OK, timestamp);
+    }
+    catch (invalid_argument e)
+    {
+        message.reply(status_codes::BadRequest, e.what());
+    }
 }
